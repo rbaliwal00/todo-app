@@ -1,57 +1,34 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import AuthenticationService from "./AuthenticationService";
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import LoginComponent from "./LoginComponent";
+import ListTodosComponent from "./ListTodosComponent";
+import HeaderComponent from "./HeaderComponent";
+import ErrorComponent from "./ErrorComponent";
+import FooterComponent from "./FooterComponent";
+import WelcomeComponent from "./WelcomeComponent";
+import LogoutComponent from "./LogoutComponent";
 
 class TodoApp extends Component{
     render(){
         return (
             <div className="TodoApp">
-                <LoginComponent />
+                <Router>
+                    <HeaderComponent/>
+                    <Switch>
+                        <Route path="/" exact component={LoginComponent} />
+                        <Route path="/login" component={LoginComponent} />
+                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
+                        <AuthenticatedRoute path="/logout" component={LogoutComponent} />
+                        <Route component={ErrorComponent} />
+                    </Switch>
+                    <FooterComponent/>
+                </Router>
             </div>
         )
     }
 };
-
-class LoginComponent extends Component{
-
-    constructor(props){
-        super(props);
-        this.state = {
-            username: 'BaliTech',
-            password: ''
-        }
-        this.handleUsernameChange = this.handleUsernameChange.bind (this);
-    }
-
-    handleUsernameChange(event){
-        this.setState({
-            username: event.target.value
-        }); 
-    }
-
-    handlePasswordChange = (event) => {
-        this.setState({
-            password: event.target.value
-        }); 
-    }
-
-    render(){
-        return (
-            <>
-            User Name : 
-            <input type="text" 
-            name="username" 
-            value={this.s } 
-            onChange={this.handleUsernameChange}
-            />
-            Password : 
-            <input type="password" 
-            name="password" 
-            value={this.state.password} 
-            onChange={this.handlePasswordChange}
-            />
-            <button>Login</button>
-            </>
-        );
-    }
-}
 
 export default TodoApp;
