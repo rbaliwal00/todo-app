@@ -2,12 +2,11 @@ import {Component} from "react";
 
 class AuthenticationService extends Component{
 
-
-    registerSuccessfulLogin(username, password){
+    registerSuccessfulLogin = (username, password) => {
         window.sessionStorage.setItem('authenticatedUser', username);
     }
 
-    logout(){
+    logout = () => {
         window.sessionStorage.removeItem('authenticatedUser');
     }
 
@@ -18,6 +17,14 @@ class AuthenticationService extends Component{
         }
         return true;
     }
+
+    getLoggedInUsername = () => {
+        let user = window.sessionStorage.getItem('authenticatedUser');
+        if (user === null){
+            return '';
+        }
+        return user;
+    }
 }
 
-export default new AuthenticationService;
+export default new AuthenticationService();
