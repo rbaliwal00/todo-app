@@ -13,6 +13,11 @@ class HelloWorldService{
 
     executeHelloWorldPathVariableService(name){
         //console.log('executed service');
+        // let username = 'balitech';
+        // let password = 'dummy';
+
+        // let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password);
+
         return axios.get(`http://localhost:8080/hello-world/path-variable/${name}`);
     }
 }
