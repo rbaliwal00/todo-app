@@ -1,12 +1,23 @@
 import {Component} from "react";
 import axios from "axios";
+import {API_URL} from "../../Constant";
+
+export const USER_NAME_SESSION_NAME = 'authenticatedUser';
 
 class AuthenticationService extends Component{
 
     executeBasicAuthenticationService(username, password){
 
-        return axios.get('http://localhost:8080/basicauth',
+        return axios.get(`${API_URL}/basicauth`,
             {headers: {authorization: this.createBasicAuthToken(username,password)}})
+    }
+
+    executeJwtAuthenticationService(username, password){
+
+        return axios.post(`${API_URL}/authenticate`,{
+            username,
+            password
+        })
     }
 
     createBasicAuthToken(username,password){
@@ -15,16 +26,16 @@ class AuthenticationService extends Component{
 
     registerSuccessfulLogin = (username, password) => {
 
-        window.sessionStorage.setItem('authenticatedUser', username);
+        window.sessionStorage.setItem(USER_NAME_SESSION_NAME, username);
         this.setAxiosInterceptors(this.createBasicAuthToken(username,password));
     }
 
     logout = () => {
-        window.sessionStorage.removeItem('authenticatedUser');
+        window.sessionStorage.removeItem(USER_NAME_SESSION_NAME);
     }
 
     isUserLoggedIn = () => {
-        let user = window.sessionStorage.getItem('authenticatedUser');
+        let user = window.sessionStorage.getItem(USER_NAME_SESSION_NAME);
         if (user === null){
             return false;
         }
@@ -32,7 +43,7 @@ class AuthenticationService extends Component{
     }
 
     getLoggedInUsername = () => {
-        let user = window.sessionStorage.getItem('authenticatedUser');
+        let user = window.sessionStorage.getItem(USER_NAME_SESSION_NAME);
         if (user === null){
             return '';
         }
@@ -48,6 +59,15 @@ class AuthenticationService extends Component{
                 return config;
             }
         )
+    }
+
+    registerSuccessfulLoginForJwt(username, token) {
+       sessionStorage.setItem(USER_NAME_SESSION_NAME, username);
+        this.setAxiosInterceptors(this.createJwtToken(token));
+    }
+
+    createJwtToken(token) {
+        return 'Bearer ' + token
     }
 }
 
