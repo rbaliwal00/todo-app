@@ -1,4 +1,4 @@
-package com.example.todoserver.services.basicauth;
+package com.example.basicauth;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

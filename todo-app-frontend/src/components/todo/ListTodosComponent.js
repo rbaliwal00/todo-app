@@ -67,8 +67,8 @@ class ListTodosComponent extends Component{
                             this.state.todos.map(todo =>
                                 <tr key={todo.id}>
                                     <th>{todo.description}</th>
-                                    <th>{todo.done.toString()}</th>
                                     <th>{moment(todo.targetDate.toString()).format("YYYY-MM-DD")}</th>
+                                    <th>{todo.done.toString()}</th>
                                     <td><button className={"btn btn-success"} onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
                                     <td><button className={"btn btn-warning"} onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
                                 </tr>

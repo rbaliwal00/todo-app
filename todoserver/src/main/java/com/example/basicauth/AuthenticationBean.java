@@ -1,4 +1,4 @@
-package com.example.todoserver.services.basicauth;
+package com.example.basicauth;
 
 public class AuthenticationBean {
         private String message;

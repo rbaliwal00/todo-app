@@ -1,4 +1,4 @@
-package com.example.todoserver.services.basicauth;
+package com.example.basicauth;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
